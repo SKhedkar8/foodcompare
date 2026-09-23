@@ -1,0 +1,359 @@
+/* FoodCompare Natural Culinary Theme & Organic Design System */
+
+:root {
+  /* Natural Earthy Palette - Warm Kitchen Obsidian Dark Mode */
+  --bg-dark: #14110E;
+  --bg-card: rgba(26, 22, 18, 0.88);
+  --bg-card-hover: rgba(38, 32, 26, 0.95);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border-glass: rgba(217, 119, 6, 0.14);
+  --border-glass-bright: rgba(217, 119, 6, 0.28);
+
+  /* Warm Culinary Accents (Terracotta, Paprika, Saffron) */
+  --primary: #C2410C;           /* Warm Terracotta */
+  --primary-light: #EA580C;     /* Paprika */
+  --secondary: #D97706;         /* Saffron Turmeric */
+  --secondary-glow: rgba(217, 119, 6, 0.2);
+  --gradient-brand: linear-gradient(135deg, #C2410C 0%, #D97706 60%, #B45309 100%);
+  --gradient-glow: radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.15) 0%, transparent 70%);
+
+  /* Best Deal - Fresh Herbal Basil & Forest Green */
+  --deal-green: #2D6A4F;
+  --deal-green-bright: #40916C;
+  --deal-green-bg: rgba(45, 106, 79, 0.18);
+  --deal-green-border: rgba(64, 145, 108, 0.55);
+  --deal-glow: 0 0 25px rgba(64, 145, 108, 0.35);
+
+  /* Natural Typography Tones */
+  --text-main: #FDFBF7;         /* Warm Sourdough Cream */
+  --text-muted: #B8ADA0;        /* Oatmeal Stone */
+  --text-subtle: #85796E;       /* Spiced Bark */
+
+  /* Platform Tones */
+  --color-swiggy: #EA580C;
+  --color-zomato: #DC2626;
+  --color-eatclub: #7C3AED;
+  --color-magicpin: #2D6A4F;
+  --color-eatsure: #D97706;
+
+  /* Card Curves & Shadows */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-card: 0 12px 30px -10px rgba(15, 10, 5, 0.6);
+  --shadow-floating: 0 20px 40px -12px rgba(15, 10, 5, 0.75);
+
+  /* Typography */
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', var(--font-main);
+}
+
+/* Light Theme: Unbleached Linen & Warm Parchment */
+[data-theme='light'] {
+  --bg-dark: #FAF6EF;
+  --bg-card: rgba(255, 252, 247, 0.94);
+  --bg-card-hover: #FFFFFF;
+  --bg-glass: rgba(194, 65, 12, 0.03);
+  --border-glass: rgba(194, 65, 12, 0.12);
+  --border-glass-bright: rgba(194, 65, 12, 0.22);
+
+  --text-main: #241D17;
+  --text-muted: #6B5D52;
+  --text-subtle: #968679;
+
+  --deal-green: #1B4332;
+  --deal-green-bright: #2D6A4F;
+  --deal-green-bg: rgba(45, 106, 79, 0.12);
+  --deal-green-border: rgba(45, 106, 79, 0.45);
+  --deal-glow: 0 8px 20px rgba(45, 106, 79, 0.2);
+  --shadow-card: 0 10px 25px -5px rgba(40, 25, 15, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-image: 
+    radial-gradient(at 15% 15%, rgba(194, 65, 12, 0.08) 0px, transparent 50%),
+    radial-gradient(at 85% 25%, rgba(217, 119, 6, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 85%, rgba(45, 106, 79, 0.06) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* Glassmorphism panels with warm edge highlights */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-panel-hover:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-glass-bright);
+  box-shadow: var(--shadow-floating);
+}
+
+/* Warm terracotta primary button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--gradient-brand);
+  color: #FFFDF9;
+  font-weight: 600;
+  font-size: 0.92rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(194, 65, 12, 0.35);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(194, 65, 12, 0.5);
+  filter: brightness(1.08);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: var(--bg-glass);
+  color: var(--text-main);
+  border: 1px solid var(--border-glass-bright);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(217, 119, 6, 0.1);
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  border-radius: var(--radius-sm);
+}
+
+/* Best Deal - Basil Green Crown Badge & Border */
+.best-deal-glow {
+  position: relative;
+  border: 2px solid var(--deal-green-bright) !important;
+  background: linear-gradient(180deg, var(--deal-green-bg) 0%, var(--bg-card) 60%) !important;
+  box-shadow: var(--deal-glow) !important;
+}
+
+.best-deal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--deal-green-bright);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(45, 106, 79, 0.4);
+  animation: pulseDeal 2s infinite ease-in-out;
+}
+
+@keyframes pulseDeal {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+/* Selectable Choice Chips */
+.choice-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.choice-chip:hover {
+  border-color: var(--secondary);
+  background: rgba(217, 119, 6, 0.12);
+  transform: translateY(-1px);
+}
+
+.choice-chip.active {
+  background: var(--primary);
+  color: #FFFDF9;
+  border-color: var(--primary);
+  box-shadow: 0 2px 10px rgba(194, 65, 12, 0.35);
+}
+
+/* Chat bubble styling for Food Companion */
+.chat-bubble-bot {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px 18px 18px 4px;
+  padding: 14px 18px;
+  max-width: 88%;
+  color: var(--text-main);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.chat-bubble-user {
+  background: var(--gradient-brand);
+  color: #FFFDF9;
+  border-radius: 18px 18px 4px 18px;
+  padding: 12px 18px;
+  max-width: 80%;
+  margin-left: auto;
+  font-weight: 500;
+  box-shadow: 0 4px 15px rgba(194, 65, 12, 0.25);
+}
+
+/* Veg / Non-Veg Indicator Icon */
+.food-type-icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.food-type-icon.veg {
+  border: 1.5px solid #2D6A4F;
+}
+.food-type-icon.veg::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background-color: #2D6A4F;
+  border-radius: 50%;
+}
+.food-type-icon.non-veg {
+  border: 1.5px solid #DC2626;
+}
+.food-type-icon.non-veg::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background-color: #DC2626;
+  border-radius: 50%;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ========================================================== */
+/* CULINARY BACKGROUND ANIMATION KEYFRAMES                     */
+/* Frying Egg, Boiling Pot, Chopping Vegetables, Floating Herb */
+/* ========================================================== */
+
+@keyframes panSizzle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.006) rotate(0.4deg); }
+  75% { transform: scale(0.994) rotate(-0.4deg); }
+}
+
+@keyframes eggYolkGlow {
+  0%, 100% { fill: #F59E0B; transform: scale(1); }
+  50% { fill: #D97706; transform: scale(1.03); }
+}
+
+@keyframes oilBubbleRise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  40% { opacity: 0.8; }
+  100% { transform: translateY(-24px) scale(1.2); opacity: 0; }
+}
+
+@keyframes potSteamRise {
+  0% { transform: translateY(0) scale(0.8) translateX(0); opacity: 0; }
+  30% { opacity: 0.6; }
+  70% { opacity: 0.4; transform: translateY(-38px) scale(1.4) translateX(8px); }
+  100% { transform: translateY(-65px) scale(1.9) translateX(-10px); opacity: 0; }
+}
+
+@keyframes waterBubble {
+  0%, 100% { transform: translateY(0) scale(0.9); }
+  50% { transform: translateY(-6px) scale(1.15); }
+}
+
+@keyframes knifeChop {
+  0%, 100% { transform: rotate(0deg); }
+  45% { transform: rotate(-18deg) translateY(-8px); }
+  55% { transform: rotate(2deg) translateY(2px); }
+}
+
+@keyframes veggieWobble {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04) rotate(1deg); }
+}
+
+@keyframes herbDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(15px, -20px) rotate(15deg); }
+  66% { transform: translate(-10px, -45px) rotate(-10deg); }
+  100% { transform: translate(0, -70px) rotate(25deg); opacity: 0; }
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(217, 119, 6, 0.2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(217, 119, 6, 0.35);
+}
