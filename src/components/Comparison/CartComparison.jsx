@@ -31,20 +31,22 @@ export default function CartComparison() {
   const totalCartSavings = worstCartDeal ? worstCartDeal.finalPayable - bestCartDeal.finalPayable : 0;
 
   // Sample quick add-ons (fries, drinks, desserts)
+  const bk = restaurantsData.find(r => r.id === 'rest-4') || restaurantsData[1] || {};
+  const behrouz = restaurantsData.find(r => r.id === 'rest-1') || restaurantsData[0] || {};
   const quickAddons = [
     {
-      dish: restaurantsData[3].dishes[1], // Peri Peri Fries
-      restaurant: restaurantsData[3]
+      dish: bk.dishes?.find(d => d.id === 'dish-402') || bk.dishes?.[1],
+      restaurant: bk
     },
     {
-      dish: restaurantsData[3].dishes[2], // Coke
-      restaurant: restaurantsData[3]
+      dish: bk.dishes?.find(d => d.id === 'dish-403') || bk.dishes?.[2],
+      restaurant: bk
     },
     {
-      dish: restaurantsData[0].dishes[3], // Gulab Jamun
-      restaurant: restaurantsData[0]
+      dish: behrouz.dishes?.find(d => d.id === 'dish-104') || behrouz.dishes?.[3] || behrouz.dishes?.[0],
+      restaurant: behrouz
     }
-  ];
+  ].filter(item => item.dish && item.restaurant);
 
   if (cartItems.length === 0) {
     return (

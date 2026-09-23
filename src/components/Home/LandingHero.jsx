@@ -28,8 +28,19 @@ export default function LandingHero() {
   const [heroSearch, setHeroSearch] = useState('');
 
   // Default featured comparison dish from Behrouz
-  const featuredRestaurant = restaurantsData[0];
-  const featuredDish = featuredRestaurant.dishes[1]; // Lazeez Bhuna Murgh Biryani
+  const featuredRestaurant = restaurantsData.find(r => r.id === 'rest-1') || restaurantsData[0];
+  const featuredDish = featuredRestaurant?.dishes?.[1] || featuredRestaurant?.dishes?.[0]; // Lazeez Bhuna Murgh Biryani
+
+  const selectByCriteria = (restId, dishPredicate, category) => {
+    const restaurant = restaurantsData.find(r => r.id === restId) || restaurantsData[0];
+    const dish = restaurant?.dishes?.find(dishPredicate) || restaurant?.dishes?.[0];
+    if (dish && restaurant) {
+      if (category) setSelectedCategory(category);
+      selectDishForComparison(dish, restaurant);
+      return true;
+    }
+    return false;
+  };
 
   const handleQuickSearchSubmit = (e) => {
     e.preventDefault();
@@ -37,33 +48,31 @@ export default function LandingHero() {
 
     const lower = heroSearch.toLowerCase();
     if (lower.includes('biryani')) {
-      setSelectedCategory('biryani');
-      selectDishForComparison(featuredRestaurant.dishes[1], featuredRestaurant);
+      selectByCriteria('rest-1', d => d.id === 'dish-102', 'biryani');
     } else if (lower.includes('pizza')) {
-      setSelectedCategory('pizza');
-      selectDishForComparison(restaurantsData[2].dishes[0], restaurantsData[2]);
+      selectByCriteria('rest-3', () => true, 'pizza');
     } else if (lower.includes('burger') || lower.includes('fries')) {
-      setSelectedCategory('burgers');
-      selectDishForComparison(restaurantsData[3].dishes[0], restaurantsData[3]);
+      selectByCriteria('rest-4', d => d.id === 'dish-401', 'burgers');
     } else if (lower.includes('chole') || lower.includes('thali')) {
-      setSelectedCategory('north-indian');
-      selectDishForComparison(restaurantsData[5].dishes[0], restaurantsData[5]);
+      selectByCriteria('rest-6', () => true, 'north-indian');
     } else if (lower.includes('waffle')) {
-      setSelectedCategory('desserts');
-      selectDishForComparison(restaurantsData[6].dishes[0], restaurantsData[6]);
+      selectByCriteria('rest-7', () => true, 'desserts');
     } else if (lower.includes('momo') || lower.includes('chinese')) {
-      setSelectedCategory('chinese');
-      selectDishForComparison(restaurantsData[7].dishes[0], restaurantsData[7]);
+      selectByCriteria('rest-8', () => true, 'chinese');
     } else {
       setActiveTab('companion');
     }
   };
 
-  const handleChipClick = (query, cat, dishIdx, restIdx) => {
+  const handleChipClick = (query, cat, restId, dishId) => {
     setHeroSearch(query);
-    setSelectedCategory(cat);
-    selectDishForComparison(restaurantsData[restIdx].dishes[dishIdx], restaurantsData[restIdx]);
-    showToast(`Loaded comparison for "${query}"`, 'info');
+    const rest = restaurantsData.find(r => r.id === restId) || restaurantsData[0];
+    const dish = (dishId ? rest?.dishes?.find(d => d.id === dishId) : null) || rest?.dishes?.[0];
+    if (dish && rest) {
+      setSelectedCategory(cat);
+      selectDishForComparison(dish, rest);
+      showToast(`Loaded comparison for "${query}"`, 'info');
+    }
   };
 
   return (
@@ -166,35 +175,35 @@ export default function LandingHero() {
             Popular:
           </span>
           <button
-            onClick={() => handleChipClick('Lazeez Chicken Biryani under ₹300', 'biryani', 1, 0)}
+            onClick={() => handleChipClick('Lazeez Chicken Biryani under ₹300', 'biryani', 'rest-1', 'dish-102')}
             className="choice-chip"
             style={{ fontSize: '0.8rem' }}
           >
             🍗 Chicken Biryani
           </button>
           <button
-            onClick={() => handleChipClick('Delhi Chole Bhature', 'north-indian', 0, 5)}
+            onClick={() => handleChipClick('Delhi Chole Bhature', 'north-indian', 'rest-6', 'dish-601')}
             className="choice-chip"
             style={{ fontSize: '0.8rem' }}
           >
             🥘 Chole Bhature
           </button>
           <button
-            onClick={() => handleChipClick('Triple Chocolate Belgian Waffle', 'desserts', 0, 6)}
+            onClick={() => handleChipClick('Triple Chocolate Belgian Waffle', 'desserts', 'rest-7', 'dish-701')}
             className="choice-chip"
             style={{ fontSize: '0.8rem' }}
           >
             🧇 Belgian Waffle
           </button>
           <button
-            onClick={() => handleChipClick('Darjeeling Steamed Momos', 'chinese', 0, 7)}
+            onClick={() => handleChipClick('Darjeeling Steamed Momos', 'chinese', 'rest-8', 'dish-801')}
             className="choice-chip"
             style={{ fontSize: '0.8rem' }}
           >
             🥟 Darjeeling Momos
           </button>
           <button
-            onClick={() => handleChipClick('Peri Peri Gourmet Pizza', 'pizza', 0, 2)}
+            onClick={() => handleChipClick('Peri Peri Gourmet Pizza', 'pizza', 'rest-3', 'dish-301')}
             className="choice-chip"
             style={{ fontSize: '0.8rem' }}
           >

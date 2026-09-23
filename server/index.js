@@ -52,6 +52,61 @@ const server = http.createServer((req, res) => {
   const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
   const pathname = parsedUrl.pathname;
 
+  // Root & API Info Handlers
+  if (pathname === '/' || pathname === '/api' || pathname === '/api/') {
+    const isHtml = req.headers.accept && req.headers.accept.includes('text/html');
+    if (isHtml) {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FoodCompare Backend API</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #14110E; color: #FDFBF7; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+    .card { background: #1F1A15; border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 16px; padding: 36px; max-width: 540px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(64, 145, 108, 0.2); color: #40916C; padding: 4px 12px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; border: 1px solid rgba(64, 145, 108, 0.4); margin-bottom: 16px; }
+    .badge-dot { width: 8px; height: 8px; background: #40916C; border-radius: 50%; box-shadow: 0 0 8px #40916C; }
+    h1 { margin: 0 0 10px; font-size: 1.8rem; color: #FDFBF7; }
+    p { margin: 0 0 24px; color: #B8ADA0; line-height: 1.5; font-size: 0.95rem; }
+    .btn { display: inline-block; background: linear-gradient(135deg, #C2410C, #D97706); color: #FFF; padding: 12px 24px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 1rem; box-shadow: 0 8px 20px rgba(194, 65, 12, 0.3); transition: transform 0.2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .endpoints { margin-top: 28px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; }
+    .endpoint-item { display: flex; justify-content: space-between; padding: 6px 0; font-size: 0.85rem; font-family: monospace; color: #D97706; }
+    .endpoint-label { color: #85796E; font-family: sans-serif; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge"><div class="badge-dot"></div> API Server Active (Port 5000)</div>
+    <h1>FoodCompare Backend</h1>
+    <p>The backend microservice is fully operational and ready to serve live platform deeplinks, user preferences, and real-time fee calculations.</p>
+    <a href="http://localhost:5173" class="btn">🚀 Open Web Application (Port 5173)</a>
+    <div class="endpoints">
+      <div style="font-size: 0.8rem; text-transform: uppercase; color: #85796E; font-weight: 700; margin-bottom: 8px;">Available API Endpoints:</div>
+      <div class="endpoint-item"><span>GET /api/health</span><span class="endpoint-label">Status check</span></div>
+      <div class="endpoint-item"><span>GET /api/profile</span><span class="endpoint-label">User profile</span></div>
+      <div class="endpoint-item"><span>POST /api/profile</span><span class="endpoint-label">Update settings</span></div>
+      <div class="endpoint-item"><span>GET /api/redirect</span><span class="endpoint-label">Platform deeplink</span></div>
+    </div>
+  </div>
+</body>
+</html>`);
+      return;
+    }
+
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      name: 'FoodCompare Backend API',
+      status: 'online',
+      port: PORT,
+      frontendUrl: 'http://localhost:5173',
+      endpoints: ['/api/health', '/api/profile', '/api/redirect'],
+      serverTime: new Date().toISOString()
+    }));
+    return;
+  }
+
   // 1. Health Check
   if (pathname === '/api/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });

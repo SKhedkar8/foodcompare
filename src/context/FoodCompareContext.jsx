@@ -49,8 +49,12 @@ export function FoodCompareProvider({ children }) {
   const [couponsData, setCouponsData] = useState(PLATFORM_COUPONS);
 
   // Default active comparison dish from Behrouz
-  const defaultRestaurant = RESTAURANTS[0];
-  const defaultDish = defaultRestaurant.dishes[1];
+  const defaultRestaurant = RESTAURANTS[0] || {};
+  const defaultDish = defaultRestaurant.dishes?.[1] || defaultRestaurant.dishes?.[0] || {};
+  const burgerKing = RESTAURANTS.find(r => r.id === 'rest-4') || RESTAURANTS[1] || {};
+  const friesDish = burgerKing.dishes?.find(d => d.id === 'dish-402') || burgerKing.dishes?.[1] || {};
+  const drinkDish = burgerKing.dishes?.find(d => d.id === 'dish-403') || burgerKing.dishes?.[2] || {};
+
   const [activeComparison, setActiveComparison] = useState({
     restaurant: defaultRestaurant,
     dish: defaultDish,
@@ -62,33 +66,33 @@ export function FoodCompareProvider({ children }) {
   const [cartItems, setCartItems] = useState([
     {
       id: 'cart-1',
-      restaurantId: 'rest-1',
+      restaurantId: defaultRestaurant.id || 'rest-1',
       restaurantName: 'Behrouz Biryani',
-      name: 'Lazeez Bhuna Murgh Biryani (Chicken)',
+      name: defaultDish.name || 'Lazeez Bhuna Murgh Biryani (Chicken)',
       portion: 'Serves 1-2',
       qty: 1,
       isVeg: false,
-      platformPricing: defaultDish.platformPricing
+      platformPricing: defaultDish.platformPricing || {}
     },
     {
       id: 'cart-2',
-      restaurantId: 'rest-4',
+      restaurantId: burgerKing.id || 'rest-4',
       restaurantName: 'Burger King',
-      name: 'Peri Peri King Fries (Large)',
+      name: friesDish.name || 'Peri Peri King Fries (Large)',
       portion: 'Large (140g)',
       qty: 1,
       isVeg: true,
-      platformPricing: RESTAURANTS[3].dishes[1].platformPricing
+      platformPricing: friesDish.platformPricing || {}
     },
     {
       id: 'cart-3',
-      restaurantId: 'rest-4',
+      restaurantId: burgerKing.id || 'rest-4',
       restaurantName: 'Burger King',
-      name: 'Chilled Thums Up / Coke Can',
+      name: drinkDish.name || 'Chilled Thums Up / Coke Can',
       portion: '300ml Can',
       qty: 1,
       isVeg: true,
-      platformPricing: RESTAURANTS[3].dishes[2].platformPricing
+      platformPricing: drinkDish.platformPricing || {}
     }
   ]);
 
